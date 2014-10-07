@@ -1,0 +1,41 @@
+{
+  "name": "products-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "bluebird": "^2.3.5",
+    "boom": "^2.5.1",
+    "chai": "^1.9.2",
+    "good": "^2.3.0",
+    "hapi": "^6.11.1",
+    "hapi-mongoose-db-connector": "^1.0.5",
+    "hapi-statsd": "^1.0.3",
+    "joi": "^4.7.0",
+    "lodash": "^2.4.1",
+    "lout": "^5.1.1",
+    "moment": "^2.8.3",
+    "mongoose": "^3.8.17",
+    "require-directory": "^2.0.0"
+  },
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "mocha": "^1.21.4"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TylerGarlick/products-test.git"
+  },
+  "author": "Tyler Garlick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TylerGarlick/products-test/issues"
+  },
+  "homepage": "https://github.com/TylerGarlick/products-test"
+}

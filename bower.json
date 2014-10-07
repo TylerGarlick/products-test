@@ -1,0 +1,16 @@
+{
+  "name": "products-test",
+  "main": "index.js",
+  "version": "0.0.0",
+  "authors": [
+    "Tyler Garlick <tjgarlick@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
