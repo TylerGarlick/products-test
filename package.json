@@ -41,5 +41,8 @@
   "bugs": {
     "url": "https://github.com/TylerGarlick/products-test/issues"
   },
-  "homepage": "https://github.com/TylerGarlick/products-test"
+  "homepage": "https://github.com/TylerGarlick/products-test",
+  "engines" : {
+    "node": "0.10.x"
+  }
 }

@@ -4,8 +4,8 @@ var Hapi = require('hapi')
   , Db = require('./config/database')
   , Router = require('./config/router');
 
-var port = process.env.PORT || 3000;
-var server = new Hapi.Server(port);
+var port = parseInt(process.env.PORT || 3000);
+var server = new Hapi.Server('localhost', port);
 
 server.route(Router.endpoints);
 
@@ -17,7 +17,7 @@ server.pack.register([
   {
     plugin: require('hapi-mongoose-db-connector'),
     options: {
-      mongodbUrl: 'mongodb://localhost:27017/product-test'
+      mongodbUrl: Db.mongoUri
     }
   }
 ], function (err) {
