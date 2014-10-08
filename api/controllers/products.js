@@ -14,6 +14,9 @@ internals.save = function (request, reply) {
     , id = request.payload._id;
   if (id)
     return productService.update(id, request.payload)
+      .then(function (product) {
+        return reply(product);
+      })
       .catch(function (err) {
         if (err.name === 'OperationalError')
           return reply(Boom.badRequest(err, product));
@@ -29,6 +32,9 @@ internals.save = function (request, reply) {
       });
   else
     return productService.save(request.payload)
+      .then(function (product) {
+        return reply(product);
+      })
       .catch(function (err) {
         if (err.name === 'OperationalError')
           return reply(Boom.badRequest(err, product));

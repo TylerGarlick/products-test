@@ -1,20 +1,23 @@
 "use strict";
 
 angular.module('productsManager')
-  .factory('ProductServices', ['Product', function (Product) {
-    return {
-      all: function () {
-        return Product.query();
-      },
-      create: function (product) {
-        var product = new Product(product);
-        return product.$save();
-      },
-      update: function (product) {
-        return Product.update({ id: product._id }, product);
-      },
-      delete: function (id) {
-        return Product.delete({ id: id });
+  .factory('ProductServices', ['$http',
+    function ($http) {
+      var baseUrl = '/v1/products';
+      return {
+        all: function () {
+          return $http.get(baseUrl);
+        },
+        create: function (product) {
+          return $http.post(baseUrl, product);
+        },
+        update: function (product) {
+          var url = baseUrl + '/' + product._id;
+          return $http.put(url, product);
+        },
+        delete: function (id) {
+          var url = baseUrl + '/' + id;
+          return $http.delete(url);
+        }
       }
-    }
-  }]);
+    }]);
