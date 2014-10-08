@@ -1,0 +1,19 @@
+<div class="aside ng-scope right am-slide-right product-edit-dialog" tabindex="-1" role="dialog">
+  <div class="aside-dialog">
+    <div class="aside-content">
+      <div class="aside-header">
+        <button type="button" class="close" ng-click="$hide()">×</button>
+        <h4 class="aside-title ng-binding" ng-bind="title"></h4>
+      </div>
+      <div class="aside-body">
+        <div class="well-sm">
+          Are you sure you want to delete <strong>{{ product.name }}</strong>?
+        </div>
+      </div>
+      <div class="aside-footer">
+        <button type="button" class="btn btn-danger pull-right" ng-click="delete(product); $hide()">Delete</button>
+        <button type="button" class="btn btn-default pull-left" ng-click="$hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

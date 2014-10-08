@@ -1,9 +1,8 @@
 "use strict";
 
-var Hapi = require('hapi');
-
-var Db = require('./config/database'),
-  Router = require('./config/router');
+var Hapi = require('hapi')
+  , Db = require('./config/database')
+  , Router = require('./config/router');
 
 var port = process.env.PORT || 3000;
 var server = new Hapi.Server(port);

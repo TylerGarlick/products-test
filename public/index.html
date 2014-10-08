@@ -1,8 +1,45 @@
-<html>
+<html ng-app="productsManager">
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Products</title>
+
+  <link rel="stylesheet" href="css/app.css"/>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
 </head>
 <body>
-  <h1>Hello World</h1>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <a class="navbar-brand" href="/">Product Manager</a>
+      <ul class="nav navbar-nav">
+        <li ng-class="{active: $state.includes('products')}"><a ui-sref="products.list">Products</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div ui-view></div>
+  </div>
+
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+  <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+  <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+  <script src="bower_components/ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+
+  <script src="app/app.js"></script>
+  <script src="app/shared/models/product.js"></script>
+  <script src="app/features/products/controllers.js"></script>
+  <script src="app/shared/services/products.js"></script>
 </body>
 </html>

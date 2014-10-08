@@ -1,10 +1,10 @@
 "use strict";
 
-var Promise = require('bluebird'),
-  Db = require('../../config/database'),
-  Product = Promise.promisifyAll(require('../models/product')),
-  _ = require('lodash'),
-  Joi = require('joi');
+var Promise = require('bluebird')
+  , Db = require('../../config/database')
+  , Product = Promise.promisifyAll(require('../models/product'))
+  , _ = require('lodash')
+  , Joi = require('joi');
 
 var internals = {};
 internals.validate = function (product, schema) {
@@ -26,6 +26,8 @@ function ProductService(options) {
       enumerable: true, configurable: false,
       get: function () {
         return Joi.object().keys({
+          "_id": Joi.any(),
+          "__v": Joi.any(),
           name: Joi.string().min(1).required(),
           description: Joi.string(),
           price: Joi.number().min(0).precision(2).required()
@@ -40,7 +42,7 @@ function ProductService(options) {
  * @returns {Promise<products>}
  */
 ProductService.prototype.query = function () {
-  return Product.findAsync();
+  return Product.findAsync({}, null, { sort: {name: "asc"}});
 };
 
 /**
@@ -75,22 +77,26 @@ ProductService.prototype.byName = function (name) {
  * @param {object} product
  * @returns {Promise}
  */
-ProductService.prototype.save = function (product) {
-
+ProductService.prototype.save = function (params) {
+  var product = new Product(params);
   var result = internals.validate(product, this.schema);
   if (result.error) throw result.error;
 
-  if (product.isNew) {
-    Promise.promisifyAll(product);
-    return product.saveAsync()
-      .spread(function (product, numberAffected) {
-        return Promise.resolve(product);
-      });
-  } else
-    return Product.findByIdAndUpdateAsync(product._id, product, { upsert: true }, function (err, product) {
-      if (err) throw err;
+  Promise.promisifyAll(product);
+  return product.saveAsync()
+    .spread(function (product, numberAffected) {
       return Promise.resolve(product);
     });
+};
+
+ProductService.prototype.update = function (id, product) {
+  var result = internals.validate(product, this.schema);
+  if (result.error) throw result.error;
+
+  delete product._id;
+  delete product.__v;
+
+  return Product.findByIdAndUpdateAsync(id, product);
 };
 
 /**
@@ -98,7 +104,11 @@ ProductService.prototype.save = function (product) {
  * @param {ObjectId|string} id
  */
 ProductService.prototype.remove = function (id) {
-  return Promise.resolve(Product.findOneAndRemove({ id: id }));
+  return this.byId(id)
+    .then(function (product) {
+      return Product.removeAsync(product);
+    });
+
 };
 
 /**

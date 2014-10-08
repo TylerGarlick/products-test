@@ -10,17 +10,38 @@ var productService = new ProductService();
 var internals = {};
 
 internals.save = function (request, reply) {
-  var product = new Product(request.payload);
-  productService.save(product)
-    .then(function (product) {
-      return reply(product);
-    }).catch(function (err) {
-      if (err.name === 'OperationalError')
-        return reply(Boom.badRequest(err, product));
-      else {
-        return reply(Boom.badImplementation(err));
-      }
-    });
+  var product
+    , id = request.payload._id;
+  if (id)
+    return productService.update(id, request.payload)
+      .catch(function (err) {
+        if (err.name === 'OperationalError')
+          return reply(Boom.badRequest(err, product));
+        else {
+          return reply(Boom.badImplementation(err)).catch(function (err) {
+            if (err.name === 'OperationalError')
+              return reply(Boom.badRequest(err, product));
+            else {
+              return reply(Boom.badImplementation(err));
+            }
+          });
+        }
+      });
+  else
+    return productService.save(request.payload)
+      .catch(function (err) {
+        if (err.name === 'OperationalError')
+          return reply(Boom.badRequest(err, product));
+        else {
+          return reply(Boom.badImplementation(err)).catch(function (err) {
+            if (err.name === 'OperationalError')
+              return reply(Boom.badRequest(err, product));
+            else {
+              return reply(Boom.badImplementation(err));
+            }
+          });
+        }
+      });
 };
 
 exports.query = {
@@ -74,9 +95,11 @@ exports.delete = {
     }
   },
   handler: function (request, reply) {
-    productService.remove(request.params.id)
+    var id = request.params.id;
+    console.log(id);
+    productService.remove(id)
       .then(function () {
-        return reply("Product was deleted successfully")
+        return reply({});
       }).catch(function (err) {
         return reply(Boom.badImplementation(err));
       });

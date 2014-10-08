@@ -1,0 +1,42 @@
+<div class="aside ng-scope right am-slide-right product-edit-dialog" tabindex="-1" role="dialog">
+  <div class="aside-dialog">
+    <div class="aside-content">
+      <div class="aside-header">
+        <button type="button" class="close" ng-click="$hide()">×</button>
+        <h4 class="aside-title ng-binding" ng-bind="title"></h4>
+      </div>
+      <div class="aside-body">
+        <form role="form" name="productForm">
+
+          <div ng-show="productForm.$invalid" class="ng-hide">
+            <ul class="list-unstyled form-errors">
+              <li ng-show="productForm.name.$invalid && productForm.name.$dirty">Name is required</li>
+              <li ng-show="productForm.price.$invalid && productForm.price.$dirty">Price is required, and must a positive
+                number</li>
+            </ul>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" placeholder="Product Name" class="form-control" id="name" name="name" ng-model="product.name" required="true"/>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea rows="5" placeholder="Product Description" class="form-control" id="description" name="description" ng-model="product.description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="name">Price</label>
+            <input type="number" placeholder="Product Price" class="form-control" id="price" name="price" ng-model="product.price" required="true" min="0"/>
+          </div>
+
+        </form>
+      </div>
+      <div class="aside-footer">
+        <button type="button" class="btn btn-primary pull-right" ng-click="save(product); $hide()" ng-disabled="productForm.$invalid">
+          Save
+        </button>
+        <button type="button" class="btn btn-default pull-left" ng-click="$hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
