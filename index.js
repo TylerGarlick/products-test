@@ -5,7 +5,7 @@ var Hapi = require('hapi')
   , Router = require('./config/router');
 
 var port = parseInt(process.env.PORT || 3000);
-var server = new Hapi.Server('localhost', port);
+var server = new Hapi.Server('0.0.0.0', port);
 
 server.route(Router.endpoints);
 
