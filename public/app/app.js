@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('productsManager', ['mgcrea.ngStrap', 'ngResource', 'ui.router', 'ngAnimate'])
+angular.module('productsManager', ['mgcrea.ngStrap', 'ngResource', 'ui.router', 'ngAnimate', 'flashr'])
   .config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
 
