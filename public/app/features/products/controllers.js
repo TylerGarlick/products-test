@@ -1,20 +1,18 @@
 "use strict";
 
 angular.module('productsManager')
-  .controller('productsCtrl', ['$scope', '$aside', 'ProductServices', 'flashr',
-    function ($scope, $aside, ProductServices, Flashr) {
+  .controller('productsCtrl', ['$scope', '$aside', 'ProductServices',
+    function ($scope, $aside, ProductServices) {
 
       function loadProducts() {
         return ProductServices.all()
           .success(function (products) {
+            $scope.product = {};
             $scope.products = products;
           });
       }
 
       loadProducts();
-
-
-
 
       $scope.save = function (product) {
         if (!product._id) {
